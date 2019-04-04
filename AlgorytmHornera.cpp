@@ -1,6 +1,3 @@
-// AlgorytmHornera.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include "pch.h"
 #include <iostream>
 #include <math.h>
@@ -9,7 +6,7 @@
 
 //x^4-6x^3-11x^2-60x+100
 
-int horner(int wsp[], int st, int x)
+long long int horner(int wsp[], int st, int x)
 {
 	if (st == 0)
 		return wsp[0];
@@ -23,18 +20,18 @@ int main()
 	std::string tmp, xtmp;
 	int stmp;
 	int stopien;
-	char znaki[10];
-	bool miany[9];
-	int x, p = 0, m = 0, b = 0, j = 0, z = 0;
+	bool mian;
+	int x, p = 0, m = 0, j = 0;
+
 check:	
 	std::cout << "Podaj wielomian (potega znaczkiem ^ np x^2): ";
 	std::cin >> wielomian;
-
+//sprawdzanie wielomiana
 	for (int i = 0; i < wielomian.length(); i++) {
 		if (i == 0) {
 			if (wielomian[i] == ' ') {
-				miany[b] = false;
-				b++;
+				mian = false;
+				break;
 			}
 			if (isdigit(wielomian[i])) {
 				while (isdigit(wielomian[i + 1])) {
@@ -43,61 +40,65 @@ check:
 				if (wielomian[i + 1] == 'X' || wielomian[i + 1] == 'x') {
 					if (wielomian[i + 2] == '^') {
 						if (isdigit(wielomian[i + 3])) {
-							miany[b] = true;
-							b++;
-
+							if (wielomian[i + 4] == '-' || wielomian[i + 4] == '+') {
+								mian = true;
+							}
+							else {
+								mian = false;
+								break;
+							}
 						}
 						else {
-							miany[b] = false;
-							b++;
-
+							mian = false;
+							break;
 						}
 					}
 					else {
 						if (wielomian[i + 2] == '+' || wielomian[i + 2] == '-') {
-							miany[b] = true;
-							b++;
+							mian = true;
 
 						}
 						else {
-							miany[b] = false;
-							b++;
-
+							mian = false;
+							break;
 						}
 					}
 				}
 				else {
-					miany[b] = false;
-					b++;
-
+					mian = false;
+					break;
 				}
 			}
 			else {
 				if (wielomian[i] == 'X' || wielomian[i] == 'x') {
 					if (wielomian[i + 1] == '^') {
 						if (isdigit(wielomian[i + 2])) {
-							miany[b] = true;
-							b++;
+							if (wielomian[i + 3] == '-' || wielomian[i + 3] == '+') {
+								mian = true;
+							}
+							else {
+								mian = false;
+								break;
+							}
 						}
 						else {
-							miany[b] = false;
-							b++;
+							mian = false;
+							break;
 						}
 					}
 					else {
 						if (wielomian[i + 1] == '+' || wielomian[i + 1] == '-') {
-							miany[b] = true;
-							b++;
+							mian = true;
 						}
 						else {
-							miany[b] = false;
-							b++;
+							mian = false;
+							break;
 						}
 					}
 				}
 				else {
-					miany[b] = false;
-					b++;
+					mian = false;
+					break;
 				}
 			}
 		}
@@ -110,39 +111,37 @@ check:
 					if (wielomian[i + 2] == 'X' || wielomian[i + 2] == 'x') {
 						if (wielomian[i + 3] == '^') {
 							if (isdigit(wielomian[i + 4])) {
-								while (isdigit(wielomian[i + 5])) {
-									i++;
+								if (wielomian[i + 5] == '-' || wielomian[i + 5] == '+') {
+									mian = true;
 								}
-								miany[b] = true;
-								b++;
+								else {
+									mian = false;
+									break;
+								}
 							}
 							else {
-								miany[b] = false;
-								b++;
+								mian = false;
+								break;
 
 							}
 						}
 						else {
 							if (wielomian[i + 3] == '+' || wielomian[i + 3] == '-') {
-								miany[b] = true;
-								b++;
-
+								mian = true;
 							}
 							else {
-								miany[b] = false;
-								b++;
-
+								mian = false;
+								break;
 							}
 						}
 					}
 					else {
 						if (i + 2 != wielomian.length()) {
-							miany[b] = false;
-							b++;
+							mian = false;
+							break;
 						}
 						else {
-							miany[b] = true;
-							b++;
+							mian = true;
 						}
 					}
 				}
@@ -151,53 +150,50 @@ check:
 						if (wielomian[i + 1] == 'X' || wielomian[i + 1] == 'x') {
 							if (wielomian[i + 2] == '^') {
 								if (isdigit(wielomian[i + 3])) {
-									while (isdigit(wielomian[i + 4])) {
-										i++;
+									if (wielomian[i + 4] == '-' || wielomian[i + 4] == '+') {
+										mian = true;
 									}
-									miany[b] = true;
-									b++;
-
+									else {
+										mian = false;
+										break;
+									}
 								}
 								else {
-									miany[b] = false;
-									b++;
+									mian = false;
+									break;
 
 								}
 							}
 							else {
 								if (wielomian[i + 2] == '+' || wielomian[i + 2] == '-') {
-									miany[b] = true;
-									b++;
-
+									mian = true;
 								}
 								else {
-									miany[b] = false;
-									b++;
+									mian = false;
+									break;
 
 								}
 							}
 						}
 						else {
-							miany[b] = false;
-							b++;
+							mian = false;
+							break;
 
 						}
 					}
 				}
-
 			}
 		}
 	}
 
-	for (int i = 0; i < 9; i++) {
-		if (miany[i] == false) {
-			std::cout << "Mian numer " << i + 1 << " podany z blendem !\n";
-			system("pause");
-			system("cls");
-			wielomian = "";
-			p = 0, m = 0, b = 0, j = 0, z = 0;
-			goto check;
-		}
+	
+	if (mian == false) {
+		std::cout << "Wielomian podany z blendem !\n";
+		system("pause");
+		system("cls");
+		wielomian = "";
+		p = 0, m = 0, j = 0;
+		goto check;
 	}
 argum:
 	std::cout << "Podaj argument (x): ";
@@ -207,6 +203,7 @@ argum:
 			std::cout << "Argument musi byc cyfra !\n";
 			system("pause");
 			system("cls");
+			std::cout << "Podaj wielomian (potega znaczkiem ^ np x^2): " << wielomian << std::endl;
 			tmp = "";
 			goto argum;
 			break;
@@ -215,9 +212,8 @@ argum:
 			tmp += xtmp[i];
 		}
 	}
-	
 	x = std::stoi(tmp);
-
+//stopien
 	for (int i = 0; i < wielomian.length(); i++) {
 		if (i == 0) {
 			if (wielomian[i] == 'X' && wielomian[i + 1] == '^' || wielomian[i] == 'x' && wielomian[i + 1] == '^') {
@@ -246,10 +242,11 @@ argum:
 	}
 
 	int *mnozniki = new int[stopien+1];
-
+//wspolczynniki
 	for (int i = 0; i < wielomian.length(); i++) {
 		if (i == 0) {
 			if (isdigit(wielomian[i])) {
+				tmp = "";
 				j = i;
 				while (wielomian[j] != 'x') {
 					if (isdigit(wielomian[j])) {
@@ -260,6 +257,7 @@ argum:
 				mnozniki[m] = std::stoi(tmp);
 				tmp = "";
 				m++;
+
 			}
 			else {
 				mnozniki[m] = 1;
@@ -268,9 +266,8 @@ argum:
 		}
 		else {
 			if (wielomian[i] == '-' || wielomian[i] == '+') {
-				znaki[z] = wielomian[i];
-				z++;
 				if (isdigit(wielomian[i + 1])) {
+					tmp = "";
 					while (wielomian[i] != 'x') {
 						if (isdigit(wielomian[i])) {
 							tmp += wielomian[i];
@@ -289,6 +286,11 @@ argum:
 					m++;
 				}
 			}
+		}
+	}
+	for (int i = 0; i < stopien + 1; i++) {
+		if (mnozniki[i] <= 0) {
+			mnozniki[i] = 1;
 		}
 	}
 
